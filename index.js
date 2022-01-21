@@ -21,9 +21,9 @@ app.post('/sign-up', (req, res) => {
 })
 
 app.post('/tweets', (req, res) => {
-    const { username, tweet } = req.body
+    const { tweet } = req.body
 
-    tweets.push({ id, username, tweet, avatar: user.avatar })
+    tweets.push({ id, username: user.username, tweet, avatar: user.avatar })
 
     id++;
 
