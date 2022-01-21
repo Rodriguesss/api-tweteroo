@@ -1,6 +1,6 @@
 # Tweteroo
 
-Uma aplicação back-end utilizando o node para consumo e envio de frases/mensagens.
+Uma aplicação back-end utilizando o nodemon para rodar o servidor e o express para consumo e envio de frases/mensagens.
 
 
 ## Rodar projeto
