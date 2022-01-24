@@ -13,8 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 app.post('/sign-up', (req, res) => {
-    const { avatar } = req.body
-    const username = req.header('User')
+    const { username, avatar } = req.body
 
     if (checkIfParameterIsEmpty([username, avatar])) {
         res.status(400).send('Todos os campos são obrigatórios!')
@@ -29,13 +28,14 @@ app.post('/sign-up', (req, res) => {
 
 app.post('/tweets', (req, res) => {
     const { tweet } = req.body
+    const username = req.header('User')
 
-    if (checkIfParameterIsEmpty([user.username, tweet])) {
+    if (checkIfParameterIsEmpty([username, tweet])) {
         res.status(400).send('Todos os campos são obrigatórios!')
         return
     }
 
-    tweets.push({ id, username: user.username, tweet, avatar: user.avatar })
+    tweets.push({ id, username, tweet, avatar: user.avatar })
 
     id++;
 
