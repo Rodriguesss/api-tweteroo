@@ -3,7 +3,7 @@ import cors from 'cors'
 import chalk from 'chalk'
 
 import { user, tweets } from './data/data.js'
-import { requestBodyValidator, multiplyByTen }  from './src/middlewares/generics/validator.middleware.js'
+import { requestBodyValidator, multiplyByTen }  from './utils/validator.js'
 
 const app = express()
 const port = 5000
@@ -13,7 +13,8 @@ app.use(cors())
 app.use(express.json())
 
 app.post('/sign-up', (req, res) => {
-    const { username, avatar } = req.body
+    const { avatar } = req.body
+    const username = req.header('User')
 
     if (requestBodyValidator([username, avatar])) {
         res.status(400).send('Todos os campos são obrigatórios!')
@@ -42,12 +43,14 @@ app.post('/tweets', (req, res) => {
 })
 
 app.get('/tweets', (req, res) => {
+    const PAGINATION_NUMBER = 10
+    const INVALID_PAGE_NUMBER = 0
+
     let page = parseInt(req.query.page)
     let initialPageResult = 0
     let tweetsSlice = []
-    const PAGINATION_NUMBER = 10
 
-    if (page <= 0) {
+    if (page <= INVALID_PAGE_NUMBER) {
         res.status(400).send('Informe uma página válida!')
         return
     }
