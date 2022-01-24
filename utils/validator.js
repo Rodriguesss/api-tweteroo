@@ -1,4 +1,4 @@
-function requestBodyValidator(params) {
+function checkIfParameterIsEmpty(params) {
     let result = false
 
     Array.isArray(params) 
@@ -13,6 +13,6 @@ function multiplyByTen(page) {
 }
 
 export {
-    requestBodyValidator,
+    checkIfParameterIsEmpty,
     multiplyByTen
 }

@@ -3,7 +3,7 @@ import cors from 'cors'
 import chalk from 'chalk'
 
 import { user, tweets } from './data/data.js'
-import { requestBodyValidator, multiplyByTen }  from './utils/validator.js'
+import { checkIfParameterIsEmpty, multiplyByTen }  from './utils/validator.js'
 
 const app = express()
 const port = 5000
@@ -16,7 +16,7 @@ app.post('/sign-up', (req, res) => {
     const { avatar } = req.body
     const username = req.header('User')
 
-    if (requestBodyValidator([username, avatar])) {
+    if (checkIfParameterIsEmpty([username, avatar])) {
         res.status(400).send('Todos os campos são obrigatórios!')
         return
     }
@@ -30,7 +30,7 @@ app.post('/sign-up', (req, res) => {
 app.post('/tweets', (req, res) => {
     const { tweet } = req.body
 
-    if (requestBodyValidator([user.username, tweet])) {
+    if (checkIfParameterIsEmpty([user.username, tweet])) {
         res.status(400).send('Todos os campos são obrigatórios!')
         return
     }
