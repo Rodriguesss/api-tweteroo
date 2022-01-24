@@ -3,7 +3,7 @@ import cors from 'cors'
 import chalk from 'chalk'
 
 import { user, tweets } from './data/data.js'
-import { RequestBodyValidator, PageValidator }  from './src/middlewares/generics/validator.middleware.js'
+import { requestBodyValidator, multiplyByTen }  from './src/middlewares/generics/validator.middleware.js'
 
 const app = express()
 const port = 5000
@@ -15,7 +15,7 @@ app.use(express.json())
 app.post('/sign-up', (req, res) => {
     const { username, avatar } = req.body
 
-    if (RequestBodyValidator([username, avatar])) {
+    if (requestBodyValidator([username, avatar])) {
         res.status(400).send('Todos os campos são obrigatórios!')
         return
     }
@@ -29,7 +29,7 @@ app.post('/sign-up', (req, res) => {
 app.post('/tweets', (req, res) => {
     const { tweet } = req.body
 
-    if (RequestBodyValidator([user.username, tweet])) {
+    if (requestBodyValidator([user.username, tweet])) {
         res.status(400).send('Todos os campos são obrigatórios!')
         return
     }
@@ -45,7 +45,7 @@ app.get('/tweets', (req, res) => {
     let page = parseInt(req.query.page)
     let initialPageResult = 0
     let tweetsSlice = []
-    const NUMBER_PAGINATION = 10
+    const PAGINATION_NUMBER = 10
 
     if (page <= 0) {
         res.status(400).send('Informe uma página válida!')
@@ -54,9 +54,9 @@ app.get('/tweets', (req, res) => {
 
     tweets.sort((a, b) => b.id - a.id)
 
-    initialPageResult = PageValidator(page) - NUMBER_PAGINATION
+    initialPageResult = multiplyByTen(page) - PAGINATION_NUMBER
 
-    tweetsSlice = tweets.slice(initialPageResult, PageValidator(page))
+    tweetsSlice = tweets.slice(initialPageResult, multiplyByTen(page))
 
     res.send(tweetsSlice)
 })

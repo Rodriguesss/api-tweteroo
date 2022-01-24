@@ -1,4 +1,4 @@
-function RequestBodyValidator(params) {
+function requestBodyValidator(params) {
     let result = false
 
     Array.isArray(params) 
@@ -8,11 +8,11 @@ function RequestBodyValidator(params) {
     return result
 }
 
-function PageValidator(page) {
-    return parseInt(`${page}0`)
+function multiplyByTen(page) {
+    return page * 10
 }
 
 export {
-    RequestBodyValidator,
-    PageValidator
+    requestBodyValidator,
+    multiplyByTen
 }
