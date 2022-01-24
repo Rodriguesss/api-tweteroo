@@ -45,6 +45,7 @@ app.get('/tweets', (req, res) => {
     let page = parseInt(req.query.page)
     let initialPageResult = 0
     let tweetsSlice = []
+    const NUMBER_PAGINATION = 10
 
     if (page <= 0) {
         res.status(400).send('Informe uma página válida!')
@@ -53,7 +54,7 @@ app.get('/tweets', (req, res) => {
 
     tweets.sort((a, b) => b.id - a.id)
 
-    initialPageResult = PageValidator(page) - 10
+    initialPageResult = PageValidator(page) - NUMBER_PAGINATION
 
     tweetsSlice = tweets.slice(initialPageResult, PageValidator(page))
 
